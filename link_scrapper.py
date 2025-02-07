@@ -8,8 +8,10 @@
     ~e-mail:        santiago.bustamanteq@gmail.com
 
     ~Start date: 2022/01/13
-    ~Last mod:   2022/01/14
+    ~Last mod:   2022/02/07
     இڿڰۣ-ڰۣ—
+
+    ChromDriver version works for Google Chrome 133, the latest stable version up to last mod date
 
 """
 
@@ -28,14 +30,14 @@ if __name__ == "__main__":
     service = webdriver.ChromeService(executable_path="./chromedriver-win64/chromedriver.exe")
     chrome_options = webdriver.ChromeOptions()  # Class for managing Chrome options
     # chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-single-click-autofill")
-    chrome_options.add_argument("--disable-autofill-keyboard-accessory-view[8]")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    chrome_options.add_experimental_option('useAutomationExtension', False)
+    #chrome_options.add_argument("--disable-single-click-autofill")
+    #chrome_options.add_argument("--disable-autofill-keyboard-accessory-view[8]")
+    #chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    #chrome_options.add_experimental_option('useAutomationExtension', False)
     prefs = {"profile.default_content_setting_values.notifications": False}  # Disable chrome notifications
     chrome_options.add_experimental_option("prefs", prefs)
 
-    driver = webdriver.Chrome(service=service, options=chrome_options)  # Initialize webdriver
+    driver = webdriver.Chrome(service=service, options=chrome_options)  # Initialize webdriver, works for Google Chrome version 133
 
     for page in range(1,51):
         driver.get(homepage+"catalogue/page-{:d}.html".format(page)) # Enter catalogue page
@@ -50,5 +52,3 @@ if __name__ == "__main__":
         links_df = pd.concat([links_df, pd.DataFrame(all_hrefs, columns=["link"])], ignore_index=True)
 
     links_df.to_excel("book_links.xlsx", index=False)
-
-
